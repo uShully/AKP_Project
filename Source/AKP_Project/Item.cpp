@@ -1,0 +1,11 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Item.h"
+#include "AKP_ProjectCharacter.h"
+
+UItem::UItem()
+{
+
+}
+
