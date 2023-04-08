@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class AKP_PROJECT_API UInventoryComponent : public UActorComponent
 {
@@ -27,21 +28,34 @@ public:
 	bool RemoveItem(class UItem* Item);
 	bool AddEquipItem(class UItem* Item, class UItem* EquipInventory);
 
+	bool AddEquipItem(class UItem* Item);
+	bool AddEquipRightHandItem(class UItem* Item);
+	bool AddEquipLeftHandItem(class UItem* Item);
+
 	UPROPERTY(EditDefaultsOnly, Instanced)
 		TArray<class UItem*> DefaultItems;
 
 	UPROPERTY(BlueprintAssignable, Category = "Inventory")
 		FOnInventoryUpdated OnInventoryUpdated;
 
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
+		FOnInventoryUpdated OnInventoryEquipRightHandUpdated;
+
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
+		FOnInventoryUpdated OnInventoryEquipLeftHandUpdated;
+
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
+		FOnInventoryUpdated OnInventoryEquipItemUpdated;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Items")
 		TArray<class UItem*> Items;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Items")
 		class UItem* EquipRightHand;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Items")
 		class UItem* EquipLeftHand;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Items")
 		class UItem* EquipItem;
 };

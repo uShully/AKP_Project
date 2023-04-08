@@ -19,6 +19,12 @@ void UInventoryComponent::BeginPlay()
 	
 	Owner = Cast<AAKP_ProjectCharacter>(GetOwner());
 
+	
+
+	AddEquipItem(DefaultItems[0]);
+	AddEquipRightHandItem(DefaultItems[1]);
+	AddEquipLeftHandItem(DefaultItems[2]);
+
 }
 
 bool UInventoryComponent::AddEquipItem(class UItem* Item, class UItem* EquipInventory)
@@ -28,6 +34,39 @@ bool UInventoryComponent::AddEquipItem(class UItem* Item, class UItem* EquipInve
 	EquipInventory = Item;
 
 	OnInventoryUpdated.Broadcast();
+
+	return true;
+}
+
+bool UInventoryComponent::AddEquipItem(UItem* Item)
+{
+	Item->OwingInventory = this;
+	Item->World = GetWorld();
+	EquipItem = Item;
+
+	OnInventoryEquipItemUpdated.Broadcast();
+
+	return true;
+}
+
+bool UInventoryComponent::AddEquipRightHandItem(UItem* Item)
+{
+	Item->OwingInventory = this;
+	Item->World = GetWorld();
+	EquipRightHand = Item;
+
+	OnInventoryEquipRightHandUpdated.Broadcast();
+
+	return true;
+}
+
+bool UInventoryComponent::AddEquipLeftHandItem(UItem* Item)
+{
+	Item->OwingInventory = this;
+	Item->World = GetWorld();
+	EquipLeftHand = Item;
+
+	OnInventoryEquipLeftHandUpdated.Broadcast();
 
 	return true;
 }
